@@ -1,8 +1,9 @@
 {
   "name": "@jwstring/ngx-toolbox",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Jeff Stringfield",
   "license": "MIT",
+  "repository": "https://github.com/JWString/ngx-toolbox",
   "private": false,
   "peerDependencies": {
     "@angular/common": "^14.2.0",
