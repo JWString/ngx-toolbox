@@ -1,25 +1,27 @@
 import { Injectable, Injector, ProviderToken } from '@angular/core';
-import { BaseViewModel, Constructable, DependencyArray, GenericViewModel, ViewModelFactory } from './view-model';
+import { BaseViewModel, Constructable, DependencyArray, ViewModelFactory } from './view-model';
 
 @Injectable({ providedIn: 'root' })
 export class ViewModelFactoryService {
+
+    private _factory: ViewModelFactory;
 
     constructor(injector: Injector) {
         let resolve = (dependencies: ProviderToken<any>[]): any[] => {
             return dependencies.map(t => injector.get(t));
         };
-        let factory = new ViewModelFactory(resolve);
-        this.constructWithModel = factory.constructWithModel;
-        this.constructVMTypeWithModel = factory.constructVMTypeWithModel;
+        this._factory = new ViewModelFactory(resolve);
     }
 
-    public readonly constructWithModel:
-        <TModel>
-            (model: TModel) =>
-                GenericViewModel<TModel>;
+    public constructWithModel<TModel>(model: TModel) {
+        return this._factory.constructWithModel(model);
+    }
 
-    public readonly constructVMTypeWithModel:
-        <TViewModel extends BaseViewModel<TViewModel, TModel>, TModel>
-            (type: Constructable<TViewModel>, model: TModel, dependencies?: DependencyArray) =>
-                TViewModel;
+    public constructVMTypeWithModel<TViewModel extends BaseViewModel<TViewModel, TModel>, TModel>(
+        type: Constructable<TViewModel>,
+        model: TModel,
+        dependencies?: DependencyArray
+    ) {
+        return this._factory.constructVMTypeWithModel(type, model, dependencies);
+    }
 }
