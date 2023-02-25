@@ -4,24 +4,24 @@ import { BaseViewModel, Constructable, DependencyArray, ViewModelFactory } from 
 @Injectable({ providedIn: 'root' })
 export class ViewModelFactoryService {
 
-    private _factory: ViewModelFactory;
+  private _factory: ViewModelFactory;
 
-    constructor(injector: Injector) {
-        let resolve = (dependencies: ProviderToken<any>[]): any[] => {
-            return dependencies.map(t => injector.get(t));
-        };
-        this._factory = new ViewModelFactory(resolve);
-    }
+  constructor(injector: Injector) {
+    let resolve = (dependencies: ProviderToken<any>[]): any[] => {
+      return dependencies.map(t => injector.get(t));
+    };
+    this._factory = new ViewModelFactory(resolve);
+  }
 
-    public constructWithModel<TModel>(model: TModel) {
-        return this._factory.constructWithModel(model);
-    }
+  public constructWithModel<TModel>(model: TModel) {
+    return this._factory.constructWithModel(model);
+  }
 
-    public constructVMTypeWithModel<TViewModel extends BaseViewModel<TViewModel, TModel>, TModel>(
-        type: Constructable<TViewModel>,
-        model: TModel,
-        dependencies?: DependencyArray
-    ) {
-        return this._factory.constructVMTypeWithModel(type, model, dependencies);
-    }
+  public constructVMTypeWithModel<TViewModel extends BaseViewModel<TViewModel, TModel>, TModel>(
+    type: Constructable<TViewModel>,
+    model: TModel,
+    dependencies?: DependencyArray
+  ) {
+    return this._factory.constructVMTypeWithModel(type, model, dependencies);
+  }
 }

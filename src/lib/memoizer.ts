@@ -1,5 +1,5 @@
 type FuncToMemoize<T> = (...args:any[])=>T;
-type MemoizedFunc<T> = (...args:any[])=>T
+type MemoizedFunc<T> = (...args:any[])=>T;
 
 class KeyChain<T> {
   private _map: Map<any, KeyChain<T>> | undefined;
